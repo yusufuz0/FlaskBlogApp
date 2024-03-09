@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+{% if article %}
+<h4>{{article.title}}</h4> 
+Yazar : {{article.author}} <br>
+Tarih : {{article.created_date}}
+<hr>
+{{article.content|safe}} <!-- safe; ckeditör yüzünden html etiketi olarak kaydedilen ve gözüken içeriğin normal gözükmesini sağlar -->
+<hr>
+<br> <br> <br>
+
+<h5>Yorumlar</h5>
+<hr>
+{% if comments %}
+
+{% for comment in comments  %}
+
+
+{{comment.author}} <br>
+{{comment.created_date}} <br><br>
+{{comment.content|safe}}
+
+<hr>
+
+
+{% endfor %}
+
+{% else %}
+ <div class = "alert alert-warning">Bu Makalede Henüz Hiç Yorum bulunmuyor...</div>
+ <hr>
+{% endif %}
+
+<a href="/comment/{{article.id}}" class="btn btn-info">Yorum Ekle</a>
+
+{% else %}
+<div class = "alert alert-warning">
+ Böyle bir makale bulunmuyor...
+</div>
+{% endif %}
+
+{% endblock body %}
